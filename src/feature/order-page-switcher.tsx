@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/component/ui/button/button";
 
 // Shared centered switcher (RSC)
 export default function OrderPageSwitcher() {

@@ -1,12 +1,24 @@
-import Link from 'next/link';
-import { ArrowRight, Building2, HardHat, TrendingUp, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Footer } from '@/components/footer';
-import { getConstructorStats } from '@/app/repository/constructor-repository';
-import { getOrdersCount } from '@/app/repository/orders-repository';
-import OrderPageSwitcher from '@/feature/order-page-switcher';
+import Link from "next/link";
+import {
+  ArrowRight,
+  Building2,
+  HardHat,
+  TrendingUp,
+  CheckCircle,
+} from "lucide-react";
+import { Button } from "@/component/ui/button/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/component/ui/card/card";
+import { Badge } from "@/component/ui/badge/badge";
+import { Footer } from "@/component/footer";
+import { getConstructorStats } from "@/app/repository/constructor-repository";
+import { getOrdersCount } from "@/app/repository/orders-repository";
+import OrderPageSwitcher from "@/feature/order-page-switcher";
 
 export default async function Home() {
   const [userStats, orderStats] = await Promise.all([
@@ -17,7 +29,7 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <OrderPageSwitcher />
-      
+
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 to-background py-20 md:py-32">
@@ -59,19 +71,25 @@ export default async function Home() {
                 <div className="text-3xl font-bold text-primary md:text-4xl">
                   {userStats.totalCompanies.toLocaleString()}社
                 </div>
-                <div className="mt-2 text-sm text-muted-foreground">登録企業数</div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  登録企業数
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary md:text-4xl">
                   {userStats.totalCraftsmen.toLocaleString()}人
                 </div>
-                <div className="mt-2 text-sm text-muted-foreground">登録職人数</div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  登録職人数
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-3xl font-bold text-primary md:text-4xl">
                   {orderStats.openOrders}件
                 </div>
-                <div className="mt-2 text-sm text-muted-foreground">募集中の発注</div>
+                <div className="mt-2 text-sm text-muted-foreground">
+                  募集中の発注
+                </div>
               </div>
             </div>
           </div>
@@ -215,7 +233,9 @@ export default async function Home() {
         <section className="py-20">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl rounded-lg bg-primary p-8 text-center text-primary-foreground md:p-12">
-              <h2 className="mb-4 text-3xl font-bold">今すぐCraftBankを始めよう</h2>
+              <h2 className="mb-4 text-3xl font-bold">
+                今すぐCraftBankを始めよう
+              </h2>
               <p className="mb-8 text-lg opacity-90">
                 登録無料。あなたに最適な発注やパートナーが見つかります。
               </p>
@@ -226,7 +246,12 @@ export default async function Home() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="bg-transparent text-primary-foreground hover:bg-primary-foreground/10" asChild>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="bg-transparent text-primary-foreground hover:bg-primary-foreground/10"
+                  asChild
+                >
                   <Link href="/orders">発注を見る</Link>
                 </Button>
               </div>

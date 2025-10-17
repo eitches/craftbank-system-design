@@ -1,20 +1,30 @@
-import Link from 'next/link';
-import { ArrowLeft, MapPin, Building2, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Footer } from '@/components/footer';
-import { getOrderById } from '@/app/repository/orders-repository';
-import { Separator } from '@/components/ui/separator';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import OrderPageSwitcher from '@/feature/order-page-switcher';
-import { applyOrder } from '@/feature/orders/server/apply-order';
+import Link from "next/link";
+import { ArrowLeft, MapPin, Building2, Calendar } from "lucide-react";
+import { Button } from "@/component/ui/button/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/component/ui/card/card";
+import { Badge } from "@/component/ui/badge/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/component/ui/avatar/avatar";
+import { Footer } from "@/component/footer";
+import { getOrderById } from "@/app/repository/orders-repository";
+import { Separator } from "@/component/ui/separator/separator";
+import { Label } from "@/component/ui/label/label";
+import { Input } from "@/component/ui/input/input";
+import { Textarea } from "@/component/ui/textarea/textarea";
+import { Alert, AlertDescription, AlertTitle } from "@/component/ui/alert/alert";
+import OrderPageSwitcher from "@/feature/order-page-switcher";
+import { applyOrder } from "@/feature/orders/server/apply-order";
 
-export default async function OrderDetailPage({ params }: { params: { id: string } }) {
+export default async function OrderDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const order = await getOrderById(params.id);
 
   // Bind server action to this order id
@@ -64,10 +74,14 @@ export default async function OrderDetailPage({ params }: { params: { id: string
           {/* Page header */}
           <div className="mb-8 rounded-lg border bg-secondary/50 p-6">
             <div className="flex items-baseline justify-between gap-4">
-              <h1 className="text-3xl font-semibold tracking-tight">発注詳細</h1>
+              <h1 className="text-3xl font-semibold tracking-tight">
+                発注詳細
+              </h1>
               <span className="text-xs text-muted-foreground">Detail</span>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">募集内容と企業情報を確認し、応募フォームからエントリーできます。</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              募集内容と企業情報を確認し、応募フォームからエントリーできます。
+            </p>
           </div>
 
           <div className="space-y-6">
@@ -75,21 +89,25 @@ export default async function OrderDetailPage({ params }: { params: { id: string
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="mb-2 text-2xl">{order.title}</CardTitle>
+                    <CardTitle className="mb-2 text-2xl">
+                      {order.title}
+                    </CardTitle>
                     <CardDescription className="flex items-center text-base">
                       <MapPin className="mr-1 h-4 w-4" />
                       {order.prefectureId} {order.city}
                     </CardDescription>
                   </div>
                   <Badge variant="secondary" className="text-base">
-                    {order.status === 'open' ? '募集中' : '進行中'}
+                    {order.status === "open" ? "募集中" : "進行中"}
                   </Badge>
                 </div>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
                   <h3 className="mb-2 font-semibold">発注詳細</h3>
-                  <p className="whitespace-pre-wrap text-muted-foreground">{order.description}</p>
+                  <p className="whitespace-pre-wrap text-muted-foreground">
+                    {order.description}
+                  </p>
                 </div>
 
                 <div>
@@ -104,15 +122,22 @@ export default async function OrderDetailPage({ params }: { params: { id: string
                     <h3 className="mb-2 font-semibold">予算</h3>
                     <p className="flex items-center text-muted-foreground">
                       <Building2 className="mr-2 h-4 w-4" />
-                      {typeof order.laborBudget === 'number' ? `¥${order.laborBudget.toLocaleString()}` : '未設定'}
+                      {typeof order.laborBudget === "number"
+                        ? `¥${order.laborBudget.toLocaleString()}`
+                        : "未設定"}
                     </p>
                   </div>
                   <div>
                     <h3 className="mb-2 font-semibold">工期</h3>
                     <p className="flex items-center text-muted-foreground">
                       <Calendar className="mr-2 h-4 w-4" />
-                      {new Date(order.constructionStartDate).toLocaleDateString('ja-JP')} 〜{' '}
-                      {new Date(order.constructionEndDate).toLocaleDateString('ja-JP')}
+                      {new Date(order.constructionStartDate).toLocaleDateString(
+                        "ja-JP",
+                      )}{" "}
+                      〜{" "}
+                      {new Date(order.constructionEndDate).toLocaleDateString(
+                        "ja-JP",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -122,14 +147,20 @@ export default async function OrderDetailPage({ params }: { params: { id: string
                     <h3 className="mb-2 font-semibold">募集期間</h3>
                     <p className="flex items-center text-muted-foreground">
                       <Calendar className="mr-2 h-4 w-4" />
-                      {new Date(order.applicationStartDate).toLocaleDateString('ja-JP')} 〜{' '}
-                      {new Date(order.applicationEndDate).toLocaleDateString('ja-JP')}
+                      {new Date(order.applicationStartDate).toLocaleDateString(
+                        "ja-JP",
+                      )}{" "}
+                      〜{" "}
+                      {new Date(order.applicationEndDate).toLocaleDateString(
+                        "ja-JP",
+                      )}
                     </p>
                   </div>
                   <div>
                     <h3 className="mb-2 font-semibold">支払い条件</h3>
                     <p className="text-muted-foreground text-sm">
-                      締め日: {order.paymentClosingDate} / 支払月: {order.paymentDueMonth} / 支払日: {order.paymentDueDate}
+                      締め日: {order.paymentClosingDate} / 支払月:{" "}
+                      {order.paymentDueMonth} / 支払日: {order.paymentDueDate}
                     </p>
                   </div>
                 </div>
@@ -162,7 +193,9 @@ export default async function OrderDetailPage({ params }: { params: { id: string
                     応募する
                   </Button>
                 </form>
-                <p className="mt-2 text-xs text-muted-foreground">送信後は発注一覧に戻ります。</p>
+                <p className="mt-2 text-xs text-muted-foreground">
+                  送信後は発注一覧に戻ります。
+                </p>
               </CardContent>
             </Card>
 
@@ -194,7 +227,9 @@ export default async function OrderDetailPage({ params }: { params: { id: string
                         物件種別: {order.propertyTypeId}
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">支払い前払い可: {order.canPayBeforeStart ? '可' : '不可'}</p>
+                    <p className="text-sm text-muted-foreground">
+                      支払い前払い可: {order.canPayBeforeStart ? "可" : "不可"}
+                    </p>
                   </div>
                 </div>
               </CardContent>

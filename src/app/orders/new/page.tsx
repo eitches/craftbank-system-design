@@ -1,10 +1,16 @@
-import { Footer } from '@/components/footer';
-import { OrderCreateForm } from '@/feature/orders/form';
-import { getPrefectures } from '@/app/repository/prefecture-repository';
-import { getConstructionTypes } from '@/app/repository/construction-type-repository';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import OrderPageSwitcher from '@/feature/order-page-switcher';
+import { Footer } from "@/component/footer";
+import { OrderCreateForm } from "@/feature/orders/form";
+import { getPrefectures } from "@/app/repository/prefecture-repository";
+import { getConstructionTypes } from "@/app/repository/construction-type-repository";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/component/ui/card/card";
+import { Separator } from "@/component/ui/separator/separator";
+import OrderPageSwitcher from "@/feature/order-page-switcher";
 
 export default async function NewOrderPage() {
   const prefectures = await getPrefectures();
@@ -20,7 +26,9 @@ export default async function NewOrderPage() {
           {/* Page header */}
           <div className="mb-8">
             <h1 className="text-3xl font-semibold tracking-tight">発注登録</h1>
-            <p className="mt-2 text-sm text-muted-foreground">新しい工事発注を登録して、最適な協力会社や職人を募集しましょう。</p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              新しい工事発注を登録して、最適な協力会社や職人を募集しましょう。
+            </p>
           </div>
 
           <Separator className="mb-8" />
@@ -31,7 +39,10 @@ export default async function NewOrderPage() {
               <CardDescription>必要な情報を入力してください</CardDescription>
             </CardHeader>
             <CardContent className="pt-6">
-              <OrderCreateForm prefectures={prefectures} constructionTypes={constructionTypes} />
+              <OrderCreateForm
+                prefectures={prefectures}
+                constructionTypes={constructionTypes}
+              />
             </CardContent>
           </Card>
         </div>

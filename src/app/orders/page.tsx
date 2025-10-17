@@ -1,14 +1,20 @@
-import Link from 'next/link';
-import { MapPin, Calendar, Briefcase, Building2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Footer } from '@/components/footer';
-import { OrderFilters } from '@/feature/orders/order-filters';
-import { getOrders } from '@/app/repository/orders-repository';
-import OrderPageSwitcher from '@/feature/order-page-switcher';
+import Link from "next/link";
+import { MapPin, Calendar, Briefcase, Building2 } from "lucide-react";
+import { Button } from "@/component/ui/button/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/component/ui/card/card";
+import { Badge } from "@/component/ui/badge/badge";
+import { Separator } from "@/component/ui/separator/separator";
+import { Alert, AlertDescription, AlertTitle } from "@/component/ui/alert/alert";
+import { Footer } from "@/component/footer";
+import { OrderFilters } from "@/feature/orders/order-filters";
+import { getOrders } from "@/app/repository/orders-repository";
+import OrderPageSwitcher from "@/feature/order-page-switcher";
 
 interface PageProps {
   searchParams: {
@@ -20,13 +26,15 @@ interface PageProps {
 
 export default async function OrdersPage({ searchParams }: PageProps) {
   const params = searchParams;
-  
+
   const orders = await getOrders({
     keyword: params.keyword,
-    prefecture: params.prefecture === 'all' ? undefined : (params.prefecture as any),
-    constructionTypes: params.constructionType && params.constructionType !== 'all' 
-      ? [params.constructionType as any] 
-      : undefined,
+    prefecture:
+      params.prefecture === "all" ? undefined : (params.prefecture as any),
+    constructionTypes:
+      params.constructionType && params.constructionType !== "all"
+        ? [params.constructionType as any]
+        : undefined,
   });
 
   return (
@@ -44,7 +52,7 @@ export default async function OrdersPage({ searchParams }: PageProps) {
 
           <div className="grid gap-8 lg:grid-cols-4">
             <aside className="lg:col-span-1">
-              <OrderFilters 
+              <OrderFilters
                 initialKeyword={params.keyword}
                 initialPrefecture={params.prefecture}
                 initialConstructionType={params.constructionType}
@@ -77,17 +85,24 @@ export default async function OrdersPage({ searchParams }: PageProps) {
                   </Card>
                 ) : (
                   orders.map((order) => (
-                    <Card key={order.id} className="transition-shadow hover:shadow-sm">
+                    <Card
+                      key={order.id}
+                      className="transition-shadow hover:shadow-sm"
+                    >
                       <CardHeader>
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <CardTitle className="mb-2">{order.title}</CardTitle>
+                            <CardTitle className="mb-2">
+                              {order.title}
+                            </CardTitle>
                             <CardDescription className="flex items-center">
                               <MapPin className="mr-1 h-4 w-4" />
                               {order.prefectureId} {order.city}
                             </CardDescription>
                           </div>
-                          <Badge variant="secondary">{order.status === 'open' ? '募集中' : '進行中'}</Badge>
+                          <Badge variant="secondary">
+                            {order.status === "open" ? "募集中" : "進行中"}
+                          </Badge>
                         </div>
                       </CardHeader>
                       <CardContent className="space-y-4">
@@ -96,28 +111,48 @@ export default async function OrdersPage({ searchParams }: PageProps) {
                         </p>
 
                         <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline">{order.constructionTypeId}</Badge>
+                          <Badge variant="outline">
+                            {order.constructionTypeId}
+                          </Badge>
                         </div>
 
                         <div className="grid gap-2 text-sm md:grid-cols-3">
                           <div className="flex items-center">
                             <Briefcase className="mr-2 h-4 w-4 text-muted-foreground" />
-                            <span>予算: {typeof order.laborBudget === 'number' ? `¥${order.laborBudget.toLocaleString()}` : '未設定'}</span>
+                            <span>
+                              予算:{" "}
+                              {typeof order.laborBudget === "number"
+                                ? `¥${order.laborBudget.toLocaleString()}`
+                                : "未設定"}
+                            </span>
                           </div>
                           <div className="flex items-center">
                             <Calendar className="mr-2 h-4 w-4 text-muted-foreground" />
-                            <span>{new Date(order.constructionStartDate).toLocaleDateString('ja-JP')}</span>
+                            <span>
+                              {new Date(
+                                order.constructionStartDate,
+                              ).toLocaleDateString("ja-JP")}
+                            </span>
                           </div>
                           <div className="flex items-center">
                             <Calendar className="mr-2 h-4 w-4 text-muted-foreground" />
-                            <span>募集締切: {new Date(order.applicationEndDate).toLocaleDateString('ja-JP')}</span>
+                            <span>
+                              募集締切:{" "}
+                              {new Date(
+                                order.applicationEndDate,
+                              ).toLocaleDateString("ja-JP")}
+                            </span>
                           </div>
                         </div>
                         <Separator className="my-2" />
                         <div className="flex items-center justify-between pt-4">
                           <div className="text-sm">
-                            <p className="font-medium">{order.contractorPosition}</p>
-                            <p className="text-muted-foreground">発注元ID: {order.enterpriseId}</p>
+                            <p className="font-medium">
+                              {order.contractorPosition}
+                            </p>
+                            <p className="text-muted-foreground">
+                              発注元ID: {order.enterpriseId}
+                            </p>
                           </div>
                           <Button asChild>
                             <Link href={`/orders/${order.id}`}>詳細を見る</Link>
